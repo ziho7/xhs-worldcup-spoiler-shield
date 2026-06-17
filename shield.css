@@ -256,6 +256,35 @@ html.xhs-wc-shield-route-active.xhs-wc-shield-enabled .xhs-wc-shield-panel::afte
   pointer-events: none;
 }
 
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled
+  .xhs-wc-shield-left-media-mask {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled
+  .xhs-wc-shield-left-media-mask::before {
+  content: "比分画面已隐藏";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2147483646;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38%;
+  padding: 8px;
+  border-right: 1px solid rgba(255, 36, 66, 0.24);
+  background: rgba(255, 246, 247, 0.96);
+  color: #ad1f35;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  pointer-events: none;
+}
+
 html.xhs-wc-shield-route-active.xhs-wc-shield-enabled .xhs-wc-shield-toast {
   position: fixed;
   right: 18px;

@@ -19,6 +19,7 @@
   const MASK_CLASS = "xhs-wc-shield-mask";
   const WIDE_CLASS = "xhs-wc-shield-wide";
   const PANEL_CLASS = "xhs-wc-shield-panel";
+  const LEFT_MEDIA_CLASS = "xhs-wc-shield-left-media-mask";
   const SAFE_SCORE_CLASS = "xhs-wc-shield-safe-score";
   const SAFE_TITLE_CLASS = "xhs-wc-shield-safe-title";
   const TOAST_CLASS = "xhs-wc-shield-toast";
@@ -231,6 +232,39 @@
     return text.length <= MAX_TEXT_LENGTH;
   }
 
+  function hasMediaSurface(element) {
+    if (element.querySelector("img, video, picture, canvas, iframe, source")) return true;
+
+    const style = window.getComputedStyle(element);
+    return Boolean(style.backgroundImage && style.backgroundImage !== "none");
+  }
+
+  function findSmallRightMediaCard(element) {
+    let candidate = element.parentElement;
+    let depth = 0;
+
+    while (candidate && candidate !== document.body && depth < 7) {
+      const rect = candidate.getBoundingClientRect();
+
+      if (
+        rect.width >= 220 &&
+        rect.width <= 560 &&
+        rect.height >= 100 &&
+        rect.height <= 320 &&
+        rect.x > window.innerWidth * 0.52 &&
+        !candidate.matches(".xhs-match-card, .xhs-match-strip-card") &&
+        hasMediaSurface(candidate)
+      ) {
+        return candidate;
+      }
+
+      candidate = candidate.parentElement;
+      depth += 1;
+    }
+
+    return null;
+  }
+
   function canMaskElement(element) {
     if (!element || element.nodeType !== Node.ELEMENT_NODE) return false;
 
@@ -273,6 +307,9 @@
     document.querySelectorAll(`.${MASK_CLASS}`).forEach((element) => {
       element.classList.remove(MASK_CLASS, WIDE_CLASS);
       delete element.dataset[LABEL_ATTR];
+    });
+    document.querySelectorAll(`.${LEFT_MEDIA_CLASS}`).forEach((element) => {
+      element.classList.remove(LEFT_MEDIA_CLASS);
     });
     document.querySelectorAll(`.${PANEL_CLASS}`).forEach((element) => {
       element.classList.remove(PANEL_CLASS);
@@ -394,6 +431,19 @@
     });
   }
 
+  function shieldEmbeddedScoreThumbnails() {
+    if (!settings.hideScoreNumbers) return;
+
+    document.querySelectorAll(`.${MASK_CLASS}`).forEach((element) => {
+      if (!String(element.dataset[LABEL_ATTR] || "").includes("比分")) return;
+
+      const card = findSmallRightMediaCard(element);
+      if (!card) return;
+
+      card.classList.add(LEFT_MEDIA_CLASS);
+    });
+  }
+
   function showToastOnce() {
     if (toastShown || !settings.showToast || document.querySelector(`.${TOAST_CLASS}`)) return;
     if (!document.body) return;
@@ -432,6 +482,7 @@
     shieldKnownScoreBlocks();
     shieldKnownTitles();
     shieldTextLeaves();
+    shieldEmbeddedScoreThumbnails();
     showToastOnce();
     markReady();
   }
