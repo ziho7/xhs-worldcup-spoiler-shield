@@ -1,8 +1,8 @@
-html:not(.xhs-wc-shield-ready) body {
+html.xhs-wc-shield-route-active:not(.xhs-wc-shield-ready) body {
   opacity: 0 !important;
 }
 
-html.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores
   :is(
     .xhs-match-header-score-wrap,
     .xhs-match-header-status,
@@ -19,7 +19,7 @@ html.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores
   user-select: none !important;
 }
 
-html.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores
   :is(
     .xhs-match-header-score-wrap,
     .xhs-match-header-status,
@@ -35,7 +35,7 @@ html.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores
   text-shadow: none !important;
 }
 
-html.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores
   :is(
     .xhs-match-header-score-wrap,
     .xhs-match-timeline-score,
@@ -67,7 +67,8 @@ html.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores
   box-shadow: 0 4px 14px rgba(138, 24, 41, 0.08);
 }
 
-html.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores .xhs-match-header-status::after {
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores
+  .xhs-match-header-status::after {
   content: "赛果已隐藏";
   position: absolute;
   inset: -2px;
@@ -90,7 +91,7 @@ html.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores .xhs-match-header-status::a
   box-shadow: 0 4px 14px rgba(138, 24, 41, 0.08);
 }
 
-html.xhs-wc-shield-enabled.xhs-wc-shield-hide-titles
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled.xhs-wc-shield-hide-titles
   :is(
     .xhs-match-card-match-highlight,
     .xhs-match-highlights-card-title,
@@ -104,7 +105,7 @@ html.xhs-wc-shield-enabled.xhs-wc-shield-hide-titles
   user-select: none !important;
 }
 
-html.xhs-wc-shield-enabled.xhs-wc-shield-hide-titles
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled.xhs-wc-shield-hide-titles
   :is(
     .xhs-match-card-match-highlight,
     .xhs-match-highlights-card-title,
@@ -134,21 +135,21 @@ html.xhs-wc-shield-enabled.xhs-wc-shield-hide-titles
   box-shadow: 0 4px 14px rgba(138, 24, 41, 0.08);
 }
 
-html.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels
   :is(.xhs-match-standings, .xhs-match-timeline, .xhs-match-stats) {
   position: relative !important;
   min-height: 78px !important;
   overflow: hidden !important;
 }
 
-html.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels
   :is(.xhs-match-standings, .xhs-match-timeline, .xhs-match-stats)
   > * {
   opacity: 0 !important;
   pointer-events: none !important;
 }
 
-html.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels
   :is(.xhs-match-standings, .xhs-match-timeline, .xhs-match-stats)::after {
   content: "剧透面板已隐藏";
   position: absolute;
@@ -166,31 +167,34 @@ html.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels
   pointer-events: none;
 }
 
-html.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels .xhs-match-standings::after {
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels
+  .xhs-match-standings::after {
   content: "积分榜已隐藏";
 }
 
-html.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels .xhs-match-timeline::after {
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels
+  .xhs-match-timeline::after {
   content: "进球时间线已隐藏";
 }
 
-html.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels .xhs-match-stats::after {
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels
+  .xhs-match-stats::after {
   content: "技术统计已隐藏";
 }
 
-html.xhs-wc-shield-enabled .xhs-wc-shield-mask {
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled .xhs-wc-shield-mask {
   position: relative !important;
   color: transparent !important;
   text-shadow: none !important;
   user-select: none !important;
 }
 
-html.xhs-wc-shield-enabled .xhs-wc-shield-mask > * {
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled .xhs-wc-shield-mask > * {
   color: transparent !important;
   text-shadow: none !important;
 }
 
-html.xhs-wc-shield-enabled .xhs-wc-shield-mask::after {
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled .xhs-wc-shield-mask::after {
   content: attr(data-xhs-shield-label);
   position: absolute;
   inset: -2px;
@@ -213,23 +217,24 @@ html.xhs-wc-shield-enabled .xhs-wc-shield-mask::after {
   box-shadow: 0 4px 14px rgba(138, 24, 41, 0.08);
 }
 
-html.xhs-wc-shield-enabled .xhs-wc-shield-mask.xhs-wc-shield-wide::after {
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled
+  .xhs-wc-shield-mask.xhs-wc-shield-wide::after {
   justify-content: flex-start;
   padding-inline: 12px;
 }
 
-html.xhs-wc-shield-enabled .xhs-wc-shield-panel {
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled .xhs-wc-shield-panel {
   position: relative !important;
   min-height: 78px !important;
   overflow: hidden !important;
 }
 
-html.xhs-wc-shield-enabled .xhs-wc-shield-panel > * {
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled .xhs-wc-shield-panel > * {
   opacity: 0 !important;
   pointer-events: none !important;
 }
 
-html.xhs-wc-shield-enabled .xhs-wc-shield-panel::after {
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled .xhs-wc-shield-panel::after {
   content: attr(data-xhs-shield-label);
   position: absolute;
   inset: 10px;
@@ -246,7 +251,7 @@ html.xhs-wc-shield-enabled .xhs-wc-shield-panel::after {
   pointer-events: none;
 }
 
-html.xhs-wc-shield-enabled .xhs-wc-shield-toast {
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled .xhs-wc-shield-toast {
   position: fixed;
   right: 18px;
   bottom: 18px;

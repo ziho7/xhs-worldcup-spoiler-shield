@@ -14,6 +14,7 @@
   const TITLE_ROOT_CLASS = "xhs-wc-shield-hide-titles";
   const PANEL_ROOT_CLASS = "xhs-wc-shield-hide-panels";
   const DISABLED_ROOT_CLASS = "xhs-wc-shield-disabled";
+  const ROUTE_CLASS = "xhs-wc-shield-route-active";
   const READY_CLASS = "xhs-wc-shield-ready";
   const MASK_CLASS = "xhs-wc-shield-mask";
   const WIDE_CLASS = "xhs-wc-shield-wide";
@@ -67,6 +68,16 @@
   let observer = null;
   let bootScans = 0;
   let toastShown = false;
+  let routeActive = false;
+  let lastHref = window.location.href;
+
+  function isWorldCupRoute(url = window.location.href) {
+    try {
+      return new URL(url, window.location.href).pathname.startsWith("/worldcup26");
+    } catch (error) {
+      return window.location.pathname.startsWith("/worldcup26");
+    }
+  }
 
   function readEarlySettings() {
     let saved = {};
@@ -108,6 +119,21 @@
     root.classList.toggle(PANEL_ROOT_CLASS, enabled && Boolean(nextSettings.hidePanels));
   }
 
+  function updateRouteState() {
+    const nextRouteActive = isWorldCupRoute();
+    if (nextRouteActive !== routeActive) {
+      routeActive = nextRouteActive;
+      document.documentElement.classList.toggle(ROUTE_CLASS, routeActive);
+
+      if (routeActive) {
+        document.documentElement.classList.remove(READY_CLASS);
+      }
+    }
+
+    return routeActive;
+  }
+
+  updateRouteState();
   applyRootClasses(readEarlySettings());
 
   function storageGet(callback) {
@@ -206,6 +232,18 @@
     document.querySelectorAll(`.${TOAST_CLASS}`).forEach((element) => element.remove());
   }
 
+  function deactivateForRoute() {
+    document.documentElement.classList.remove(
+      ROOT_CLASS,
+      SCORE_ROOT_CLASS,
+      TITLE_ROOT_CLASS,
+      PANEL_ROOT_CLASS,
+      READY_CLASS
+    );
+    clearDynamicShields();
+    document.querySelectorAll(`.${TOAST_CLASS}`).forEach((element) => element.remove());
+  }
+
   function markReady() {
     document.documentElement.classList.add(READY_CLASS);
   }
@@ -295,6 +333,11 @@
   function scanNow() {
     scanTimer = 0;
 
+    if (!updateRouteState()) {
+      deactivateForRoute();
+      return;
+    }
+
     if (!document.body) {
       scheduleScan(30);
       return;
@@ -324,11 +367,31 @@
 
   function startObserver() {
     if (observer || !document.documentElement) return;
-    observer = new MutationObserver(() => scheduleScan());
+    observer = new MutationObserver(() => scheduleScan(routeActive ? 0 : 120));
     observer.observe(document.documentElement, {
       childList: true,
       subtree: true,
       characterData: true
+    });
+  }
+
+  function startRouteWatcher() {
+    window.setInterval(() => {
+      if (window.location.href === lastHref) return;
+      lastHref = window.location.href;
+      updateRouteState();
+      scheduleScan(0);
+    }, 80);
+
+    window.addEventListener("popstate", () => {
+      lastHref = window.location.href;
+      updateRouteState();
+      scheduleScan(0);
+    });
+    window.addEventListener("hashchange", () => {
+      lastHref = window.location.href;
+      updateRouteState();
+      scheduleScan(0);
     });
   }
 
@@ -378,6 +441,7 @@
       writeEarlySettings(settings);
       applyRootClasses(settings);
       startObserver();
+      startRouteWatcher();
       listenForSettings();
       bootScanLoop();
     });

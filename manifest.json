@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "小红书世界杯免比分",
   "description": "隐藏小红书世界杯页面里的比分、结果和进球类剧透标题，保留对阵和回放入口。",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "action": {
     "default_title": "世界杯免比分",
     "default_popup": "popup.html"
@@ -12,8 +12,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.xiaohongshu.com/worldcup26*",
-        "https://www.xiaohongshu.com/worldcup26/*"
+        "https://www.xiaohongshu.com/*"
       ],
       "css": ["shield.css"],
       "js": ["content.js"],
