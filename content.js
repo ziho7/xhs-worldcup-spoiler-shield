@@ -31,6 +31,7 @@
   const MAX_GENERIC_MASK_HEIGHT = 90;
   const MAX_SCORE_PANEL_WIDTH = 190;
   const MAX_SCORE_PANEL_HEIGHT = 240;
+  const MIN_SIDE_CARD_TOP = 240;
 
   const scoreSelectors = [
     ".xhs-match-header-score-wrap",
@@ -167,7 +168,9 @@
   }
 
   function isInsideShieldedNode(element) {
-    return Boolean(element.closest(`.${MASK_CLASS}, .${PANEL_CLASS}, .${TOAST_CLASS}`));
+    return Boolean(
+      element.closest(`.${MASK_CLASS}, .${LEFT_MEDIA_CLASS}, .${PANEL_CLASS}, .${TOAST_CLASS}`)
+    );
   }
 
   function hasShieldedAncestor(element) {
@@ -263,6 +266,33 @@
     }
 
     return null;
+  }
+
+  function isRightSideThumbnailCard(element) {
+    if (!element || element.nodeType !== Node.ELEMENT_NODE) return false;
+
+    const rect = element.getBoundingClientRect();
+    if (
+      rect.width < 220 ||
+      rect.width > 620 ||
+      rect.height < 100 ||
+      rect.height > 340 ||
+      rect.x <= window.innerWidth * 0.52 ||
+      rect.y < MIN_SIDE_CARD_TOP
+    ) {
+      return false;
+    }
+
+    if (element.matches(".xhs-match-card, .xhs-match-strip-card")) {
+      return false;
+    }
+
+    if (!hasMediaSurface(element)) {
+      return false;
+    }
+
+    const text = normalize(element.textContent);
+    return text.includes("剧透") || text.includes("热门") || text.includes("世界杯");
   }
 
   function canMaskElement(element) {
@@ -433,6 +463,12 @@
 
   function shieldEmbeddedScoreThumbnails() {
     if (!settings.hideScoreNumbers) return;
+
+    document.querySelectorAll("body *").forEach((element) => {
+      if (isInsideShieldedNode(element)) return;
+      if (!isRightSideThumbnailCard(element)) return;
+      element.classList.add(LEFT_MEDIA_CLASS);
+    });
 
     document.querySelectorAll(`.${MASK_CLASS}`).forEach((element) => {
       if (!String(element.dataset[LABEL_ATTR] || "").includes("比分")) return;
