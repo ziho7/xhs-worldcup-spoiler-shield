@@ -26,6 +26,8 @@
   const EARLY_ENABLED_KEY = "xhsWcShieldEnabled";
   const EARLY_SETTINGS_KEY = "xhsWcShieldSettings";
   const MAX_TEXT_LENGTH = 96;
+  const MAX_GENERIC_MASK_WIDTH = 360;
+  const MAX_GENERIC_MASK_HEIGHT = 90;
 
   const scoreSelectors = [
     ".xhs-match-header-score-wrap",
@@ -175,6 +177,46 @@
       element.matches(".xhs-match-card-header") ||
         element.querySelector(".xhs-match-card-match-highlight")
     );
+  }
+
+  function directTextOf(element) {
+    return normalize(
+      Array.from(element.childNodes)
+        .filter((node) => node.nodeType === Node.TEXT_NODE)
+        .map((node) => node.textContent)
+        .join(" ")
+    );
+  }
+
+  function hasVisualSurface(element) {
+    if (element.querySelector("img, video, picture, canvas, iframe, source")) return true;
+
+    const className = String(element.className || "");
+    if (/(live|video|player|cover|banner|poster|thumbnail|media)/i.test(className)) {
+      return true;
+    }
+
+    const style = window.getComputedStyle(element);
+    return Boolean(style.backgroundImage && style.backgroundImage !== "none");
+  }
+
+  function isSmallTextTarget(element, text) {
+    const rect = element.getBoundingClientRect();
+    const directText = directTextOf(element);
+
+    if (rect.width > MAX_GENERIC_MASK_WIDTH || rect.height > MAX_GENERIC_MASK_HEIGHT) {
+      return false;
+    }
+
+    if (hasVisualSurface(element)) {
+      return false;
+    }
+
+    if (element.children.length > 0 && (!directText || directText.length < text.length / 2)) {
+      return false;
+    }
+
+    return true;
   }
 
   function canMaskElement(element) {
@@ -327,11 +369,13 @@
       if (!text || text.length > MAX_TEXT_LENGTH) return;
 
       if (settings.hideScoreNumbers && hasScore(text)) {
+        if (!isSmallTextTarget(element, text)) return;
         maskElement(element, "比分已隐藏", { wide: text.length > 12 });
         return;
       }
 
       if (settings.hideSpoilerTitles && spoilerWords.test(text)) {
+        if (!isSmallTextTarget(element, text)) return;
         maskElement(element, "剧透已隐藏", { wide: true });
       }
     });
