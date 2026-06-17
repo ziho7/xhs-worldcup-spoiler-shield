@@ -58,7 +58,7 @@
   ];
 
   const spoilerWords =
-    /(全场集锦|战报|进球|破门|扳平|反超|绝杀|点球|乌龙|锁定胜局|世界波|推射|头球|单刀|制胜|补时|大胜|逆转|淘汰|晋级|战胜|击败|惜败|完胜|零封|双响|帽子戏法|轻取|让一追二|救主|拒绝开门黑|梅开二度|绝平|战平|首胜|一锤定音|赢首胜|火力全开|两度落后|顽强绝平|爆冷)/;
+    /(全场集锦|战报|进球|破门|扳平|反超|绝杀|点球|乌龙|锁定胜局|世界波|推射|头球|单刀|制胜|补时|大胜|逆转|淘汰|晋级|战胜|击败|惜败|完胜|零封|双响|帽子戏法|戴帽|问鼎|轻取|让一追二|救主|拒绝开门黑|梅开二度|绝平|战平|首胜|一锤定音|赢首胜|火力全开|两度落后|顽强绝平|爆冷)/;
   const resultWords = /(已结束|完场|全场|比分|战胜|击败|大胜|逆转|淘汰|晋级|点球大战|轻取|战平|首胜)/;
   const scorePattern =
     /(^|[^\d])([0-9]|1[0-9])\s*[-:：]\s*([0-9]|1[0-9])($|[^\d])/;
@@ -170,6 +170,13 @@
     return Boolean(element.parentElement.closest(`.${MASK_CLASS}, .${PANEL_CLASS}, .${TOAST_CLASS}`));
   }
 
+  function isMatchCardHeader(element) {
+    return Boolean(
+      element.matches(".xhs-match-card-header") ||
+        element.querySelector(".xhs-match-card-match-highlight")
+    );
+  }
+
   function canMaskElement(element) {
     if (!element || element.nodeType !== Node.ELEMENT_NODE) return false;
 
@@ -274,6 +281,17 @@
       document.querySelectorAll(selector).forEach((element) => {
         if (hasShieldedAncestor(element) || element.closest(`.${PANEL_CLASS}`)) return;
         const text = normalize(element.textContent);
+        if (element.matches(".xhs-match-card-match-highlight")) {
+          if (!text) {
+            element.classList.add(SAFE_TITLE_CLASS);
+            return;
+          }
+
+          element.classList.remove(SAFE_TITLE_CLASS);
+          maskElement(element, "赛况已隐藏", { wide: true });
+          return;
+        }
+
         if (!text || !isProbablySpoiler(text)) {
           element.classList.add(SAFE_TITLE_CLASS);
           return;
@@ -302,6 +320,7 @@
     const nodes = document.querySelectorAll("body *");
     nodes.forEach((element) => {
       if (!canMaskElement(element) || isInsideShieldedNode(element)) return;
+      if (isMatchCardHeader(element)) return;
       if (element.children.length > 2) return;
 
       const text = normalize(element.textContent);

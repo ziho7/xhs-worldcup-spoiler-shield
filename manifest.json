@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "小红书世界杯免比分",
   "description": "隐藏小红书世界杯页面里的比分、结果和进球类剧透标题，保留对阵和回放入口。",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "action": {
     "default_title": "世界杯免比分",
     "default_popup": "popup.html"

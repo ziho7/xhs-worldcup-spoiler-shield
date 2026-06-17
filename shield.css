@@ -135,6 +135,11 @@ html.xhs-wc-shield-route-active.xhs-wc-shield-enabled.xhs-wc-shield-hide-titles
   box-shadow: 0 4px 14px rgba(138, 24, 41, 0.08);
 }
 
+html.xhs-wc-shield-route-active.xhs-wc-shield-enabled.xhs-wc-shield-hide-titles
+  .xhs-match-card-match-highlight:not(.xhs-wc-shield-safe-title)::after {
+  content: "赛况已隐藏";
+}
+
 html.xhs-wc-shield-route-active.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels
   :is(.xhs-match-standings, .xhs-match-timeline, .xhs-match-stats) {
   position: relative !important;
