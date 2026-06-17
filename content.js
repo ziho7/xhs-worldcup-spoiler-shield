@@ -26,7 +26,7 @@
   const EARLY_ENABLED_KEY = "xhsWcShieldEnabled";
   const EARLY_SETTINGS_KEY = "xhsWcShieldSettings";
   const MAX_TEXT_LENGTH = 96;
-  const MAX_GENERIC_MASK_WIDTH = 360;
+  const MAX_GENERIC_MASK_WIDTH = 720;
   const MAX_GENERIC_MASK_HEIGHT = 90;
 
   const scoreSelectors = [
@@ -190,11 +190,6 @@
 
   function hasVisualSurface(element) {
     if (element.querySelector("img, video, picture, canvas, iframe, source")) return true;
-
-    const className = String(element.className || "");
-    if (/(live|video|player|cover|banner|poster|thumbnail|media)/i.test(className)) {
-      return true;
-    }
 
     const style = window.getComputedStyle(element);
     return Boolean(style.backgroundImage && style.backgroundImage !== "none");
