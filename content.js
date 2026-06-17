@@ -28,6 +28,8 @@
   const MAX_TEXT_LENGTH = 96;
   const MAX_GENERIC_MASK_WIDTH = 720;
   const MAX_GENERIC_MASK_HEIGHT = 90;
+  const MAX_SCORE_PANEL_WIDTH = 190;
+  const MAX_SCORE_PANEL_HEIGHT = 240;
 
   const scoreSelectors = [
     ".xhs-match-header-score-wrap",
@@ -214,6 +216,21 @@
     return true;
   }
 
+  function isCompactScorePanel(element, text) {
+    if (!hasScore(text)) return false;
+
+    const rect = element.getBoundingClientRect();
+    if (rect.width > MAX_SCORE_PANEL_WIDTH || rect.height > MAX_SCORE_PANEL_HEIGHT) {
+      return false;
+    }
+
+    if (element.querySelector("video, picture, canvas, iframe, source")) {
+      return false;
+    }
+
+    return text.length <= MAX_TEXT_LENGTH;
+  }
+
   function canMaskElement(element) {
     if (!element || element.nodeType !== Node.ELEMENT_NODE) return false;
 
@@ -358,16 +375,17 @@
     nodes.forEach((element) => {
       if (!canMaskElement(element) || isInsideShieldedNode(element)) return;
       if (isMatchCardHeader(element)) return;
-      if (element.children.length > 2) return;
 
       const text = normalize(element.textContent);
       if (!text || text.length > MAX_TEXT_LENGTH) return;
 
       if (settings.hideScoreNumbers && hasScore(text)) {
-        if (!isSmallTextTarget(element, text)) return;
+        if (!isSmallTextTarget(element, text) && !isCompactScorePanel(element, text)) return;
         maskElement(element, "比分已隐藏", { wide: text.length > 12 });
         return;
       }
+
+      if (element.children.length > 2) return;
 
       if (settings.hideSpoilerTitles && spoilerWords.test(text)) {
         if (!isSmallTextTarget(element, text)) return;
