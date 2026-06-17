@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>世界杯免比分</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup">
+      <header class="header">
+        <div>
+          <h1>世界杯免比分</h1>
+          <p>小红书世界杯防剧透</p>
+        </div>
+        <label class="switch" title="开启或关闭所有隐藏">
+          <input id="enabled" type="checkbox" />
+          <span aria-hidden="true"></span>
+        </label>
+      </header>
+
+      <section class="controls" aria-label="隐藏选项">
+        <label class="row">
+          <span>
+            <strong>隐藏比分和完场状态</strong>
+            <small>包括 3-1、已结束、完场等</small>
+          </span>
+          <input id="hideScoreNumbers" type="checkbox" />
+        </label>
+
+        <label class="row">
+          <span>
+            <strong>隐藏集锦/战报标题</strong>
+            <small>遮住进球、绝杀、逆转等标题剧透</small>
+          </span>
+          <input id="hideSpoilerTitles" type="checkbox" />
+        </label>
+
+        <label class="row">
+          <span>
+            <strong>隐藏剧透面板</strong>
+            <small>积分榜、进球时间线、技术统计</small>
+          </span>
+          <input id="hidePanels" type="checkbox" />
+        </label>
+      </section>
+
+      <p id="status" class="status">设置会自动保存</p>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

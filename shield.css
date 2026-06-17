@@ -1,0 +1,262 @@
+html:not(.xhs-wc-shield-ready) body {
+  opacity: 0 !important;
+}
+
+html.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores
+  :is(
+    .xhs-match-header-score-wrap,
+    .xhs-match-header-status,
+    .xhs-match-timeline-score,
+    .xhs-match-card-vs,
+    [class*="score-wrap"],
+    [class*="score-sep"],
+    [class*="match-score"],
+    [class*="MatchScore"]
+  ):not(.xhs-wc-shield-safe-score) {
+  position: relative !important;
+  color: transparent !important;
+  text-shadow: none !important;
+  user-select: none !important;
+}
+
+html.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores
+  :is(
+    .xhs-match-header-score-wrap,
+    .xhs-match-header-status,
+    .xhs-match-timeline-score,
+    .xhs-match-card-vs,
+    [class*="score-wrap"],
+    [class*="score-sep"],
+    [class*="match-score"],
+    [class*="MatchScore"]
+  ):not(.xhs-wc-shield-safe-score)
+  > * {
+  color: transparent !important;
+  text-shadow: none !important;
+}
+
+html.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores
+  :is(
+    .xhs-match-header-score-wrap,
+    .xhs-match-timeline-score,
+    .xhs-match-card-vs,
+    [class*="score-wrap"],
+    [class*="score-sep"],
+    [class*="match-score"],
+    [class*="MatchScore"]
+  ):not(.xhs-wc-shield-safe-score)::after {
+  content: "比分已隐藏";
+  position: absolute;
+  inset: -2px;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  min-height: 20px;
+  padding: 2px 8px;
+  border: 1px solid rgba(255, 36, 66, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 246, 247, 0.98);
+  color: #ad1f35;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 4px 14px rgba(138, 24, 41, 0.08);
+}
+
+html.xhs-wc-shield-enabled.xhs-wc-shield-hide-scores .xhs-match-header-status::after {
+  content: "赛果已隐藏";
+  position: absolute;
+  inset: -2px;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  min-height: 20px;
+  padding: 2px 8px;
+  border: 1px solid rgba(255, 36, 66, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 246, 247, 0.98);
+  color: #ad1f35;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 4px 14px rgba(138, 24, 41, 0.08);
+}
+
+html.xhs-wc-shield-enabled.xhs-wc-shield-hide-titles
+  :is(
+    .xhs-match-card-match-highlight,
+    .xhs-match-highlights-card-title,
+    .xhs-match-timeline-note-title,
+    [class*="highlight"][class*="title"],
+    [class*="timeline"][class*="title"]
+  ):not(.xhs-wc-shield-safe-title) {
+  position: relative !important;
+  color: transparent !important;
+  text-shadow: none !important;
+  user-select: none !important;
+}
+
+html.xhs-wc-shield-enabled.xhs-wc-shield-hide-titles
+  :is(
+    .xhs-match-card-match-highlight,
+    .xhs-match-highlights-card-title,
+    .xhs-match-timeline-note-title,
+    [class*="highlight"][class*="title"],
+    [class*="timeline"][class*="title"]
+  ):not(.xhs-wc-shield-safe-title)::after {
+  content: "剧透标题已隐藏";
+  position: absolute;
+  inset: -2px;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 28px;
+  min-height: 20px;
+  padding: 2px 12px;
+  border: 1px solid rgba(255, 36, 66, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 246, 247, 0.98);
+  color: #ad1f35;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 4px 14px rgba(138, 24, 41, 0.08);
+}
+
+html.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels
+  :is(.xhs-match-standings, .xhs-match-timeline, .xhs-match-stats) {
+  position: relative !important;
+  min-height: 78px !important;
+  overflow: hidden !important;
+}
+
+html.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels
+  :is(.xhs-match-standings, .xhs-match-timeline, .xhs-match-stats)
+  > * {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+html.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels
+  :is(.xhs-match-standings, .xhs-match-timeline, .xhs-match-stats)::after {
+  content: "剧透面板已隐藏";
+  position: absolute;
+  inset: 10px;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed rgba(255, 36, 66, 0.32);
+  border-radius: 12px;
+  background: rgba(255, 246, 247, 0.98);
+  color: #ad1f35;
+  font-size: 14px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+html.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels .xhs-match-standings::after {
+  content: "积分榜已隐藏";
+}
+
+html.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels .xhs-match-timeline::after {
+  content: "进球时间线已隐藏";
+}
+
+html.xhs-wc-shield-enabled.xhs-wc-shield-hide-panels .xhs-match-stats::after {
+  content: "技术统计已隐藏";
+}
+
+html.xhs-wc-shield-enabled .xhs-wc-shield-mask {
+  position: relative !important;
+  color: transparent !important;
+  text-shadow: none !important;
+  user-select: none !important;
+}
+
+html.xhs-wc-shield-enabled .xhs-wc-shield-mask > * {
+  color: transparent !important;
+  text-shadow: none !important;
+}
+
+html.xhs-wc-shield-enabled .xhs-wc-shield-mask::after {
+  content: attr(data-xhs-shield-label);
+  position: absolute;
+  inset: -2px;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  min-height: 20px;
+  padding: 2px 8px;
+  border: 1px solid rgba(255, 36, 66, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 246, 247, 0.98);
+  color: #ad1f35;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 4px 14px rgba(138, 24, 41, 0.08);
+}
+
+html.xhs-wc-shield-enabled .xhs-wc-shield-mask.xhs-wc-shield-wide::after {
+  justify-content: flex-start;
+  padding-inline: 12px;
+}
+
+html.xhs-wc-shield-enabled .xhs-wc-shield-panel {
+  position: relative !important;
+  min-height: 78px !important;
+  overflow: hidden !important;
+}
+
+html.xhs-wc-shield-enabled .xhs-wc-shield-panel > * {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+html.xhs-wc-shield-enabled .xhs-wc-shield-panel::after {
+  content: attr(data-xhs-shield-label);
+  position: absolute;
+  inset: 10px;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed rgba(255, 36, 66, 0.32);
+  border-radius: 12px;
+  background: rgba(255, 246, 247, 0.98);
+  color: #ad1f35;
+  font-size: 14px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+html.xhs-wc-shield-enabled .xhs-wc-shield-toast {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2147483647;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 36, 66, 0.18);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #ad1f35;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}

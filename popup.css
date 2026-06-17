@@ -1,0 +1,141 @@
+:root {
+  color-scheme: light;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: #211b1d;
+  background: #fffafa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 330px;
+  margin: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 240, 243, 0.9), rgba(255, 255, 255, 1) 44%),
+    #fff;
+}
+
+.popup {
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(180, 33, 55, 0.14);
+}
+
+h1 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+p {
+  margin: 4px 0 0;
+  color: #80666d;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.switch {
+  position: relative;
+  display: inline-flex;
+  width: 46px;
+  height: 28px;
+  flex: 0 0 auto;
+}
+
+.switch input,
+.row input {
+  accent-color: #e62f4d;
+}
+
+.switch input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.switch span {
+  width: 100%;
+  border-radius: 999px;
+  background: #d9cfd2;
+  transition: background 0.18s ease;
+}
+
+.switch span::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(30, 20, 22, 0.16);
+  transition: transform 0.18s ease;
+}
+
+.switch input:checked + span {
+  background: #e62f4d;
+}
+
+.switch input:checked + span::after {
+  transform: translateX(18px);
+}
+
+.controls {
+  display: grid;
+  gap: 10px;
+  padding: 14px 0 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 64px;
+  padding: 12px;
+  border: 1px solid rgba(180, 33, 55, 0.13);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.row strong,
+.row small {
+  display: block;
+}
+
+.row strong {
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.row small {
+  margin-top: 4px;
+  color: #8b7479;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.row input {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+}
+
+.status {
+  min-height: 18px;
+  margin-top: 6px;
+  text-align: center;
+}
